@@ -4,7 +4,12 @@
 
 ### API Design & Implementation
 
-1. SELECT \* FROM Products JOIN Verticals ON Products.vertical_id=Verticals.id WHERE Verticals.name='Broadband'
+1. ```sql
+   SELECT * FROM Products
+   JOIN Verticals ON Products.vertical_id=Verticals.id
+   JOIN Providers ON Products.provider_id=Providers.id
+   WHERE Verticals.name='Broadband' AND Providers.is_active=TRUE;
+   ```
 
 2. ```javascript
    // Assuming products have this structure
