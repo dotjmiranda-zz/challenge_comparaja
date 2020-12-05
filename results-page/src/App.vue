@@ -1,28 +1,103 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <nav class="navbar">
+      <div class="logo">CompraJá<span class="logo-end">.pt</span></div>
+
+      <div class="vertical-type">TV NET VOZ</div>
+    </nav>
+
+    <main>
+      <List v-bind:products="products"></List>
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+const URL = "https://run.mocky.io/v3/7fa187d0-7aaa-40b3-946e-dbd94c279f75";
+
+import List from "./components/List";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { List },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  methods: {
+    fetchData() {
+      fetch(URL)
+        .then((response) => response.json())
+        .then((data) => {
+          data.forEach((item) => {
+            // Replace boolean string for the actual boolean value
+            if (item.is_sponsored === "False") item.is_sponsored = false;
+            if (item.is_sponsored === "True") item.is_sponsored = true;
+          });
+
+          // Creates array with just the sponsored items
+          let sponsored_items = data.filter((item) => item.is_sponsored);
+          // Filter through data array for just the non sponsored items
+          data = data.filter((item) => !item.is_sponsored);
+          // Unshifts items from the sponsored array into the start of the data array
+          sponsored_items.forEach((item) => data.unshift(item));
+
+          this.products = data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+  },
+  mounted() {
+    this.fetchData();
+  },
+};
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-size: 12px;
+
+  --bg-color: #f5f5f5;
+  --dark-primary-color: #007ac1;
+  --primary-color: #03a9f4;
+  --secondary-color: #80cbc4;
+  --dark-secondary-color: #4f9a94;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.navbar {
+  height: 5rem;
+  background-color: var(--dark-primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5rem;
+}
+
+.logo {
+  color: #fff;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.logo-end {
+  font-size: 1.5rem;
+}
+
+.vertical-type {
+  color: #fff;
+  font-size: 1.5rem;
 }
 </style>
