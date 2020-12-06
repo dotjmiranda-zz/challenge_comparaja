@@ -70,6 +70,7 @@ export default {
   --primary-color: #03a9f4;
   --secondary-color: #81c784;
   --dark-secondary-color: #519657;
+  --light-secondary-color: #d4ecd58e;
 }
 
 body {

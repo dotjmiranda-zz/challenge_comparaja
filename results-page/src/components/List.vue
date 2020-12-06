@@ -17,7 +17,21 @@
 
     <div class="wrapper">
       <div class="filter" :class="{ 'sticky-filter': scrollPosition > 60 }">
-        test
+        <div class="filter-title">Minimum Download Speed</div>
+        <div class="filter-range">
+          0
+          <input
+            id="downloadSpeed"
+            type="range"
+            min="0"
+            max="100"
+            step="10"
+            v-model="downloadSpeed"
+            v-on:change="filterDownload"
+          />
+          100
+        </div>
+        <h3 class="filter-value">{{ downloadSpeed }} Mbps</h3>
       </div>
 
       <div>
@@ -39,7 +53,9 @@ export default {
   props: ["products"],
   data() {
     return {
+      oldProducts: [],
       scrollPosition: null,
+      downloadSpeed: 0,
     };
   },
   components: {
@@ -49,8 +65,12 @@ export default {
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
+    filterDownload: (event) => {
+      console.log(event);
+    },
   },
   mounted() {
+    this.originalProducts = this.products;
     window.addEventListener("scroll", this.updateScroll);
   },
 };
@@ -63,18 +83,42 @@ export default {
 }
 
 .filter {
+  background-color: var(--light-secondary-color);
+  border: 1px solid var(--secondary-color);
   position: fixed;
   top: 160px;
-  left: 0;
-  background-color: #fff;
+  left: 5rem;
   width: 300px;
-  height: 300px;
   z-index: 3;
   transition: 0.1s ease all;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.filter > div {
+  margin-bottom: 1rem;
 }
 
 .sticky-filter {
   top: 90px;
+}
+
+.filter-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.filter-value {
+  text-align: center;
+}
+
+.filter-range {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .sticky-headings {
