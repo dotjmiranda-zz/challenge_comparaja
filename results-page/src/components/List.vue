@@ -1,15 +1,117 @@
 <template>
   <div>
-    <pre>{{ products }}</pre>
+    <div
+      class="heading-wrapper"
+      :class="{ 'sticky-headings': scrollPosition > 60 }"
+    >
+      <div class="heading-container">
+        <div class="heading">Provider</div>
+
+        <div class="heading">Number of Channels</div>
+
+        <div class="heading">Download Speed</div>
+
+        <div class="heading">Base Monthly Fee</div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="filter" :class="{ 'sticky-filter': scrollPosition > 60 }">
+        test
+      </div>
+
+      <div>
+        <Product
+          v-for="product in products"
+          :key="product.key"
+          :product="product"
+        ></Product>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Product from "./Product";
+
 export default {
   name: "List",
   props: ["products"],
+  data() {
+    return {
+      scrollPosition: null,
+    };
+  },
+  components: {
+    Product,
+  },
+  methods: {
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.updateScroll);
+  },
 };
 </script>
 
 <style>
+.wrapper {
+  width: 1000px;
+  margin: 1rem auto;
+}
+
+.filter {
+  position: fixed;
+  top: 160px;
+  left: 0;
+  background-color: #fff;
+  width: 300px;
+  height: 300px;
+  z-index: 3;
+  transition: 0.1s ease all;
+}
+
+.sticky-filter {
+  top: 90px;
+}
+
+.sticky-headings {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.heading-wrapper {
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+}
+
+.heading-container {
+  color: #fff;
+  width: 1000px;
+
+  display: grid;
+  grid-template-columns: 220px repeat(4, 1fr);
+  grid-template-rows: 50px;
+}
+
+.heading-container:first-child {
+  border-left: 1px solid #fff;
+}
+
+.heading {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+  /* Center contents inside the grid item */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #fff;
+}
 </style>

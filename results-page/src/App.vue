@@ -68,8 +68,12 @@ export default {
   --bg-color: #f5f5f5;
   --dark-primary-color: #007ac1;
   --primary-color: #03a9f4;
-  --secondary-color: #80cbc4;
-  --dark-secondary-color: #4f9a94;
+  --secondary-color: #81c784;
+  --dark-secondary-color: #519657;
+}
+
+body {
+  background-color: rgb(245, 245, 245);
 }
 
 #app {
@@ -78,18 +82,18 @@ export default {
 }
 
 .navbar {
-  height: 5rem;
+  height: 6rem;
   background-color: var(--dark-primary-color);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0 5rem;
 }
 
 .logo {
   color: #fff;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 .logo-end {
