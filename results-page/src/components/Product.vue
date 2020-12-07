@@ -10,16 +10,28 @@
         <h1>{{ product.name }}</h1>
       </div>
 
-      <div class="item channels">
-        <div class="data">{{ product.data.tv_channels }}</div>
-        <div class="data-info">canais</div>
-      </div>
-
       <div class="item download">
         <div class="data">
           {{ product.data.internet_download_speed_in_mbs }}
         </div>
         <div class="data-info">Mbps</div>
+      </div>
+
+      <div class="item channels">
+        <div class="data">{{ product.data.tv_channels }}</div>
+        <div class="data-info">canais</div>
+      </div>
+
+      <div class="item phone">
+        <div>
+          <div class="data">{{ product.data.mobile_phone_count }}</div>
+          <div class="data-info">phone(s)</div>
+        </div>
+
+        <div v-if="product.data.mobile_phone_data_in_gbps">
+          <div class="data">{{ product.data.mobile_phone_data_in_gbps }}</div>
+          <div class="data-info">Gbps</div>
+        </div>
       </div>
 
       <div class="item price">
@@ -46,14 +58,13 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.635);
   margin: 0 0 20px 0;
   display: grid;
-  grid-template-columns: 220px repeat(4, 1fr);
+  grid-template-columns: 220px repeat(5, 1fr);
   grid-template-rows: repeat(4, 30px);
   grid-template-areas:
-    "provider channels download price button"
-    "provider channels download price button"
-    "provider channels download price button"
-    "provider channels download price button"
-    "provider channels download price button";
+    "provider download channels phone price button"
+    "provider download channels phone price button"
+    "provider download channels phone price button"
+    "provider download channels phone price button";
 }
 
 .tag {
@@ -91,6 +102,12 @@ export default {
 
 .download {
   grid-area: download;
+}
+
+.phone {
+  grid-area: phone;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .price {

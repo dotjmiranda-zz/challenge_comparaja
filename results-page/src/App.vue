@@ -7,52 +7,17 @@
     </nav>
 
     <main>
-      <List v-bind:products="products"></List>
+      <List></List>
     </main>
   </div>
 </template>
 
 <script>
-const URL = "https://run.mocky.io/v3/7fa187d0-7aaa-40b3-946e-dbd94c279f75";
-
 import List from "./components/List";
 
 export default {
   name: "App",
   components: { List },
-  data() {
-    return {
-      products: [],
-    };
-  },
-  methods: {
-    fetchData() {
-      fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-          data.forEach((item) => {
-            // Replace boolean string for the actual boolean value
-            if (item.is_sponsored === "False") item.is_sponsored = false;
-            if (item.is_sponsored === "True") item.is_sponsored = true;
-          });
-
-          // Creates array with just the sponsored items
-          let sponsored_items = data.filter((item) => item.is_sponsored);
-          // Filter through data array for just the non sponsored items
-          data = data.filter((item) => !item.is_sponsored);
-          // Unshifts items from the sponsored array into the start of the data array
-          sponsored_items.forEach((item) => data.unshift(item));
-
-          this.products = data;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-  },
-  mounted() {
-    this.fetchData();
-  },
 };
 </script>
 
