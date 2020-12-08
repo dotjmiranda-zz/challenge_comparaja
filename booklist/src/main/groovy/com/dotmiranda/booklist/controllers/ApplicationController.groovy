@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController
 class ApplicationController {
     @GetMapping("/")
     String Home() {
-        return "Root"
+        return "Home"
     }
 }

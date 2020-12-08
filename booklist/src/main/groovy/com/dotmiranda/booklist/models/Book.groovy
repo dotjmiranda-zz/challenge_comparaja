@@ -14,13 +14,13 @@ class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name = "id")
-    public Long id
+    private Long id
 
     @Column(name = "title")
-    public String title
+    private String title
 
     @Column(name = "author")
-    public String author
+    private String author
 
     Book() {}
 
@@ -30,16 +30,20 @@ class Book {
         this.author = author
     }
 
+    Long getId() { return this.id }
+
+    String getTitle() { return this.title }
+
+    String getAuthor() { return this.author }
+
+    void setId(Long id) { this.id = id }
+
+    void setTitle(String title) { this.title = title }
+
+    void setAuthor(String author) { this.author = author }
+
     @Override
     String toString() {
-        StringBuilder builder = new StringBuilder()
-
-        builder.append(String.valueOf(id))
-        builder.append(", ")
-        builder.append(title)
-        builder.append(", ")
-        builder.append(author)
-
-        return builder.toString()
+        return "Book{" + "id=" + this.id
     }
 }
