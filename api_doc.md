@@ -2,7 +2,7 @@ HOST: api.comparaja.pt
 
 # **ComparaJá Broadband API**
 
-API documentation for ComparaJá broadband products
+API documentation for ComparaJá Broadband products
 
 ## **Products**
 
@@ -82,24 +82,10 @@ If successful, it returns an HTTP status code of 200 and a list of objects that 
 
 - **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  - **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
+  - **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "" }`
 
   OR
 
   - **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Filter" }`
-
-- **Sample Call:**
-
-  ```
-  curl --request GET \
-    --url https://api.comparaja.pt/products \
-    --header "Content-Type: application/json" \
-  ```
-
-- **Notes:**
-
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._>
+    **Content:** `{ error : "Wrong format for TV Channels" }`
